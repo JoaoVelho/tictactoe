@@ -4,7 +4,7 @@ import numpy as np
 def createPattern(path):
   img = cv2.resize(cv2.imread(path), (500, 500))
   imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-  imgCanny = cv2.Canny(imgGray, 50, 50)
+  imgCanny = cv2.Canny(imgGray, 200, 50)
 
   return imgCanny
 
@@ -54,10 +54,11 @@ def getContours(img, patternX, patternO):
   
 Xpath = 'ex1.png'
 Opath = 'circle.png'
-path = 'board.png'
+path = 'board5.jpg'
 img = createPattern(path)
 imgContour = cv2.resize(cv2.imread(path), (500, 500))
 cv2.imshow('Original', imgContour)
+cv2.imshow('Canny', img)
 
 patternX = createPattern(Xpath)
 patternO = createPattern(Opath)
