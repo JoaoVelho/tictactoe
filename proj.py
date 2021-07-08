@@ -4,7 +4,7 @@ import numpy as np
 def createPattern(path):
   img = cv2.resize(cv2.imread(path), (500, 500))
   imgHSV = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
-  lower = np.array([0,43,0])
+  lower = np.array([0,23,0])
   upper = np.array([179,255,255])
   mask = cv2.inRange(imgHSV,lower,upper)
   imgResult = cv2.bitwise_and(img,img,mask=mask)
@@ -66,7 +66,7 @@ def getContours(img, patternX, patternO):
   
 Xpath = 'ex1.png'
 Opath = 'circle.png'
-path = 'boardred.jpg'
+path = 'boardred2.jpg'
 img = createPattern(path)
 imgContour = cv2.resize(cv2.imread(path), (500, 500))
 cv2.imshow('Original', imgContour)
@@ -82,15 +82,15 @@ cv2.imshow('Contour', imgContour)
 # def empty(a):
 #   pass
 
-# path = 'boardred.jpg'
+# path = 'boardred2.jpg'
 # cv2.namedWindow("TrackBars")
 # cv2.resizeWindow("TrackBars",640,240)
 # cv2.createTrackbar("Hue Min","TrackBars",0,179,empty)
 # cv2.createTrackbar("Hue Max","TrackBars",179,179,empty)
-# cv2.createTrackbar("Sat Min","TrackBars",15,255,empty)
-# cv2.createTrackbar("Sat Max","TrackBars",234,255,empty)
+# cv2.createTrackbar("Sat Min","TrackBars",8,255,empty)
+# cv2.createTrackbar("Sat Max","TrackBars",255,255,empty)
 # cv2.createTrackbar("Val Min","TrackBars",0,255,empty)
-# cv2.createTrackbar("Val Max","TrackBars",127,255,empty)
+# cv2.createTrackbar("Val Max","TrackBars",255,255,empty)
 
 # while True:
 #   img = cv2.resize(cv2.imread(path), (500, 500))
