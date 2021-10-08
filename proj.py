@@ -44,18 +44,17 @@ def main():
     img = cv2.imread(path)
     # img = cv2.resize(cv2.imread(path), (500, 500))
     imgHSV = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
-    lower = np.array([0,79,88])
+    lower = np.array([0,79,120])
     upper = np.array([179,255,255])
     mask = cv2.inRange(imgHSV,lower,upper)
     imgResult = cv2.bitwise_and(img,img,mask=mask)
-    imgGray = cv2.cvtColor(imgResult, cv2.COLOR_BGR2GRAY)
-    imgCanny = cv2.Canny(imgGray, 100, 300)
+    imgCanny = cv2.Canny(imgResult, 100, 500)
 
     return imgCanny
 
   def createPatternItem(path):
     img = cv2.imread(path)
-    # img = cv2.resize(cv2.imread(path), (500, 500))
+    img = cv2.resize(cv2.imread(path), (500, 500))
     imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     imgCanny = cv2.Canny(imgGray, 100, 500)
 
@@ -78,15 +77,15 @@ def main():
         # print(approx[0])
         
         resX = cv2.matchShapes(cntX[0], cnt, 3, 0.0)
-        # print(resX)
+        print('x = ' + str(resX))
         resO = cv2.matchShapes(cntO[0], cnt, 3, 0.0)
-        # print(resO)
+        print('o = ' + str(resO))
 
         x, y, w, h = cv2.boundingRect(approx)
-        # print((x + w, y + h))
         
-        if resX >= 0 and resX <= 0.3:
-          shape = 'X'
+        if resX >= 0 and resX <= 0.3 and resX > resO:
+          shape = 'O'
+          print(shape)
           matrix = placeGrid(x + w, y + h, img.shape, shape, matrix)
           cv2.rectangle(imgContour, (x, y), (x + w, y + h), (255, 0, 0), 2)
           cv2.putText(
@@ -98,8 +97,9 @@ def main():
             (0, 155, 0), 
             2
           )
-        elif resO >= 0 and resO <= 0.3:
-          shape = 'O'
+        elif resO >= 0 and resO <= 0.3 and resO > resX:
+          shape = 'X'
+          print(shape)
           matrix = placeGrid(x + w, y + h, img.shape, shape, matrix)
           cv2.rectangle(imgContour, (x, y), (x + w, y + h), (255, 0, 0), 2)
           cv2.putText(
@@ -118,7 +118,7 @@ def main():
     def empty(a):
       pass
 
-    path = 'teste1.jpg'
+    path = 'teste2.jpg'
     cv2.namedWindow("TrackBars")
     cv2.resizeWindow("TrackBars",640,240)
     cv2.createTrackbar("Hue Min","TrackBars",0,179,empty)
@@ -151,10 +151,10 @@ def main():
       cv2.waitKey(1)
     
   # getMask()
-  takePicture()
-  Xpath = 'ex1.png'
+  # takePicture()
+  Xpath = 'ex.jpg'
   Opath = 'circle.png'
-  path = 'teste1.jpg'
+  path = 'teste2.jpg'
   img = createPattern(path)
   imgContour = cv2.imread(path)
   # imgContour = cv2.resize(cv2.imread(path), (500, 500))
@@ -168,7 +168,6 @@ def main():
 
   cv2.imshow('Contour', imgContour)
 
-  
   cv2.waitKey(0)
 
 main()
