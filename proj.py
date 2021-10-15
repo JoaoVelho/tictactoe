@@ -154,7 +154,7 @@ def main():
   # takePicture()
   Xpath = 'ex.jpg'
   Opath = 'circle.png'
-  path = 'teste2.jpg'
+  path = 'photo2.jpg'
   img = createPattern(path)
   imgContour = cv2.imread(path)
   # imgContour = cv2.resize(cv2.imread(path), (500, 500))
@@ -170,4 +170,5 @@ def main():
 
   cv2.waitKey(0)
 
-main()
+if __name__ == "__main__":
+  main()
